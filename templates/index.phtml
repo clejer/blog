@@ -1,0 +1,34 @@
+
+		<h2>{$h2}</h2>
+		<!-- Début de la boucle -->
+		{foreach from=$articles item=news}
+			<article>
+				<h3>{$news.titre}</h3>
+				<p>{$news.texte}</p>
+				<img src = "fichiers/{$news['id']}.jpg"/>
+				<br/>
+				{$news.date}
+				</br>
+				</p>
+			</article>
+			{if (isset($online))}
+				<a href="article.php?id={$news.id|escape:'html'}" class="btn btn-primary">Modifier</a>
+				<a href="supprimer_article.php?id={$news.id|escape:'html'}" class="btn btn-danger">Supprimer</a>
+			{/if}
+		{/foreach}
+		<!-- Fin de la boucle -->
+		
+	<!-- Début de la fonction pagination -->	
+	<div class="pagination pagination-centered">
+		<ul>
+			<li class="prev {if $page<=1}disabled{/if}"><a href="?p={if $page<=1}#null {else}{$page-1}{$pager}{/if}">&larr; Précédent</a></li>
+				{for $i=1 to $nbpages}		
+					<li {if $page==$i} class='active' {/if}>
+						<a href='?p={$i} {$pager}'>{$i}</a>
+					</li>
+				{/for}
+			<li class="next {if $page>=$nbpages}disabled{/if}"><a href="?p={if $page>=$nbpages}{$page}{else}{$page+1}{$pager}{/if}">Suivant&rarr;</a></li>
+		</ul>
+	</div>
+	<!-- Fin de la fonction pagination -->
+
